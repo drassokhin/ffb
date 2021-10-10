@@ -41,6 +41,8 @@ def translate(ch: str) -> str:
 
 def ins_nb_space(ch: str) -> str:
     assert len(ch) == 1
+    if ch.isspace():
+        return ch
     if should_subst(STEALTH_SPACE_PROBABILITY):
         return f'{ch}{STEALTH_SPACE_CHAR}'
     return ch
