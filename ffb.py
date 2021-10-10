@@ -2,6 +2,8 @@
 import sys
 import random
 
+SUBSTITUTION_PROBABILITY = 0.9  # the probability a character for which a homoglyph exists will be replaced
+
 # prepare character substitution table
 homoglyphs = 'AАΑ,BВΒ,CС,EЕΕ,HНΗ,IΙ,KКΚ,MМΜ,NΝ,OОΟ,PРΡ,TТΤ,XХΧ,YΥ,ZΖ,ПΠ,ФΦ,ЛΛ,ГΓ,' \
              'aаα,cсς,eе,kкκҝ,oоο,pрρ,vν,xхχ,yу,вβ,пπ,тτ,фφ,лλ,ёӗ,йӣ'
@@ -27,8 +29,8 @@ def translate(ch: str) -> str:
     assert len(ch) == 1
     if ch not in substitution_table:
         return ch
-    # replace 3 out of 4 characters for which replacements exist
-    if not should_subst(0.75):
+    # randomly replace characters for which replacements exist
+    if not should_subst(SUBSTITUTION_PROBABILITY):
         return ch
     subst_string = substitution_table[ch]
     # choose a random homoglyph substitution
