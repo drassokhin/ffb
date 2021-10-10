@@ -3,6 +3,8 @@ import sys
 import random
 
 SUBSTITUTION_PROBABILITY = 0.9  # the probability a character for which a homoglyph exists will be replaced
+STEALTH_SPACE_CHAR = '\u200B'
+STEALTH_SPACE_PROBABILITY = 0.2
 
 # prepare character substitution table
 homoglyphs = 'AАΑ,BВΒ,CС,EЕΕ,HНΗ,IΙ,KКΚ,MМΜ,NΝ,OОΟ,PРΡ,TТΤ,XХΧ,YΥ,ZΖ,ПΠ,ФΦ,ЛΛ,ГΓ,' \
@@ -37,10 +39,17 @@ def translate(ch: str) -> str:
     return random.choice(subst_string)
 
 
+def ins_nb_space(ch: str) -> str:
+    assert len(ch) == 1
+    if should_subst(STEALTH_SPACE_PROBABILITY):
+        return f'{ch}{STEALTH_SPACE_CHAR}'
+    return ch
+
+
 def run():
     inp = sys.stdin.read()
     for ch in inp:
-        sys.stdout.write(translate(ch))
+        sys.stdout.write(ins_nb_space(translate(ch)))
     sys.stdout.flush()
 
 
