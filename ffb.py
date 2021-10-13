@@ -4,11 +4,11 @@ import random
 
 SUBSTITUTION_PROBABILITY = 0.9  # the probability a character for which a homoglyph exists will be replaced
 STEALTH_SPACE_CHAR = '\u200B'
-STEALTH_SPACE_PROBABILITY = 0.2
+STEALTH_SPACE_PROBABILITY = 0.3
 
 # prepare character substitution table
-homoglyphs = 'AАΑ,BВΒ,CС,EЕΕ,HНΗ,IΙ,KКΚ,MМΜ,NΝ,OОΟ,PРΡ,TТΤ,XХΧ,YΥ,ZΖ,ПΠ,ФΦ,ЛΛ,ГΓ,' \
-             'aаα,cсς,eе,kкκҝ,oоο,pрρ,vν,xхχ,yу,вβ,пπ,тτ,фφ,лλ,ёӗ,йӣ'
+homoglyphs = 'AАΑ,BВΒ,CСϹ,EЕΕ,FϜ,HНΗ,IΙ,KКΚ,MМΜϺ,NΝ,OОΟ,PРΡ,QԚ,TТΤ,WԜ,XХΧ,YΥ,ZΖ,ПΠ,ФΦ,ЛΛ,БƂ,ГΓ,ИͶ,' \
+             'иͷ,aаα,cсς,eе,hһ,kкκҝ,oоο,pрρ,qԛ,vν,wԝ,xхχ,yу,вβ,нӊ,пπ,тτ,фφ,лλԯ,ёӗ,йӣ'
 
 homoglyph_list = homoglyphs.split(',')
 
@@ -18,6 +18,8 @@ substitution_table = {}
 for h in homoglyph_list:
     for c in h:
         subst = h.replace(c, '')
+        # each character should occur in the homoglyphs list exactly once
+        assert c not in substitution_table
         substitution_table[c] = subst
 
 
