@@ -25,6 +25,10 @@ for h in homoglyph_list:
 
 def should_subst(probability: float) -> bool:
     assert 0.0 <= probability <= 1.0
+    if probability == 0.0:
+        return False
+    if probability == 1.0:
+        return True
     r = random.random()  # remember, this returns a pseudo-random float in the semi-open range [0.0, 1.0)
     return r < probability
 
